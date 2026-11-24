@@ -1,7 +1,7 @@
 [project]
-name = "app"
+name = "mcp-chat-cli"
 version = "0.1.0"
-description = "Add your description here"
+description = "A command-line chatbot powered by Claude, using an MCP client and server."
 readme = "README.md"
 requires-python = ">=3.10,<3.14"
 dependencies = [
