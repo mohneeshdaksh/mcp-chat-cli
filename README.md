@@ -1,4 +1,4 @@
-# MCP Chat
+# MCP Chat CLI
 
 MCP Chat is a command-line interface application that enables interactive chat capabilities with AI models through the Anthropic API. The application supports document retrieval, command-based prompts, and extensible tool integrations via the MCP (Model Context Protocol) architecture.
 
@@ -14,7 +14,9 @@ MCP Chat is a command-line interface application that enables interactive chat c
 1. Create or edit the `.env` file in the project root and verify that the following variables are set correctly:
 
 ```
-ANTHROPIC_API_KEY=""  # Enter your Anthropic API secret key
+ANTHROPIC_API_KEY=""             # Your Anthropic API key
+CLAUDE_MODEL="claude-haiku-5-5"  # Claude model to use
+USE_UV=1                         # 1 if using uv, 0 if using pip
 ```
 
 ### Step 2: Install dependencies
@@ -74,6 +76,7 @@ python main.py
 ### Basic Interaction
 
 Simply type your message and press Enter to chat with the model.
+Press Ctrl+C to exit.
 
 ### Document Retrieval
 
@@ -99,12 +102,15 @@ Commands will auto-complete when you press Tab.
 
 Edit the `mcp_server.py` file to add new documents to the `docs` dictionary.
 
-### Implementing MCP Features
+## What's Implemented
 
-To fully implement the MCP features:
+**MCP Server** (`mcp_server.py`)
+- **Tools:** `read_doc_contents`, `edit_document`. Claude calls these to read and edit documents.
+- **Resources:** `docs://documents` (list of document IDs) and `docs://documents/{doc_id}` (document contents). They power `@` mentions.
+- **Prompts:** `format` (rewrites a document in Markdown). Available as `/format`.
 
-1. Complete the TODOs in `mcp_server.py`
-2. Implement the missing functionality in `mcp_client.py`
+**MCP Client** (`mcp_client.py`)
+- Connects to the server over stdio and implements `list_tools`, `call_tool`, `read_resource`, `list_prompts` and `get_prompt`.
 
 ### Linting and Typing Check
 
